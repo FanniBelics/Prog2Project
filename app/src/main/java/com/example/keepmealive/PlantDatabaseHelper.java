@@ -18,9 +18,9 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME ="plant_name";
     private static final String COLUMN_TYPE = "plant_type";
-    private static final String COLUMN_STATE = "plant_status";
-    private static final String COLUMN_ADD_DATE = "add_date";
-    private static final String COLUMN_WATER_PERIOD = "water_period";
+    //private static final String COLUMN_STATE = "plant_status";
+    //private static final String COLUMN_ADD_DATE = "add_date";
+    //private static final String COLUMN_WATER_PERIOD = "water_period";
 
     public PlantDatabaseHelper(@Nullable Context context)
     {
@@ -33,10 +33,12 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
         String query =
                 "CREATE TABLE "+ TABLE_NAME + " ("+COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                         COLUMN_NAME + "TEXT, " +
-                        COLUMN_TYPE + " TEXT, " +
-                        COLUMN_STATE + " BOOLEAN, " +
-                        COLUMN_ADD_DATE + " DATE, " +
-                        COLUMN_WATER_PERIOD + " INTEGER); ";
+                        COLUMN_TYPE + "TEXT);"
+//                        COLUMN_TYPE + " TEXT, " +
+//                        COLUMN_STATE + " BOOLEAN, " +
+//                        COLUMN_ADD_DATE + " DATE, " +
+//                        COLUMN_WATER_PERIOD + " INTEGER); "
+                ;
         dbase.execSQL(query);
     }
 

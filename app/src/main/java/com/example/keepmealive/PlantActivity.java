@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 public class PlantActivity extends AppCompatActivity {
 
     private ImageButton openAddPlantFragment;
-
 
 
     @Override
@@ -18,11 +18,14 @@ public class PlantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant);
         openAddPlantFragment = findViewById(R.id.addPlant);
+
+
+
         openAddPlantFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                addPlant_fragment dialog = new addPlant_fragment();
+                DialogFragment dialog = new addPlant_fragment();
                 dialog.show(getSupportFragmentManager(), "Addplant");
             }
         });

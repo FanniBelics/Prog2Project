@@ -7,13 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class addPlant_fragment extends DialogFragment {
+public class addPlant_fragment extends DialogFragment implements View.OnClickListener{
 
     private Context mContext;
 
@@ -21,7 +20,8 @@ public class addPlant_fragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
         mContext=context;
     }
@@ -38,15 +38,28 @@ public class addPlant_fragment extends DialogFragment {
         type_input= (EditText) view.findViewById(R.id.PlantType);
         water_input= (EditText) view.findViewById(R.id.WateringTime);
         add_button = (Button) view.findViewById(R.id.addPlantButton);
-        Toast.makeText(mContext,"Hehe",Toast.LENGTH_SHORT);
-        add_button.setOnClickListener(new View.OnClickListener() {
+        add_button.setOnClickListener(this);
+
+        /*
+        add_button.set OnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PlantDatabaseHelper plantDb = new PlantDatabaseHelper(mContext);
                 plantDb.addPlant(name_input.getText().toString().trim(), type_input.getText().toString().trim());
+                Toast.makeText(mContext,"Hehe",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
-        return inflater.inflate(R.layout.add_plant_layout,container,false);
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        String namestr = name_input.getText().toString();
+        String typestr = type_input.getText().toString();
+        String waterstr = water_input.getText().toString();
+//        PlantDatabaseHelper plantDb = new PlantDatabaseHelper(mContext);
+//        plantDb.addPlant(namestr, typestr);
+//        Toast.makeText(mContext, namestr,Toast.LENGTH_SHORT).show();
     }
 }
