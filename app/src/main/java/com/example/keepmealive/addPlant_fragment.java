@@ -40,15 +40,6 @@ public class addPlant_fragment extends DialogFragment implements View.OnClickLis
         add_button = (Button) view.findViewById(R.id.addPlantButton);
         add_button.setOnClickListener(this);
 
-        /*
-        add_button.set OnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PlantDatabaseHelper plantDb = new PlantDatabaseHelper(mContext);
-                plantDb.addPlant(name_input.getText().toString().trim(), type_input.getText().toString().trim());
-                Toast.makeText(mContext,"Hehe",Toast.LENGTH_SHORT).show();
-            }
-        });*/
 
         return view;
     }
@@ -58,8 +49,9 @@ public class addPlant_fragment extends DialogFragment implements View.OnClickLis
         String namestr = name_input.getText().toString();
         String typestr = type_input.getText().toString();
         String waterstr = water_input.getText().toString();
-//        PlantDatabaseHelper plantDb = new PlantDatabaseHelper(mContext);
-//        plantDb.addPlant(namestr, typestr);
+        PlantDatabaseHelper plantDb = new PlantDatabaseHelper(getContext());
+        plantDb.addPlant(namestr, typestr);
+        dismiss();
 //        Toast.makeText(mContext, namestr,Toast.LENGTH_SHORT).show();
     }
 }

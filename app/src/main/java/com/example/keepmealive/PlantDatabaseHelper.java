@@ -25,6 +25,7 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
     public PlantDatabaseHelper(@Nullable Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context=context;
     }
 
     @Override
@@ -32,8 +33,8 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
     {
         String query =
                 "CREATE TABLE "+ TABLE_NAME + " ("+COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                        COLUMN_NAME + "TEXT, " +
-                        COLUMN_TYPE + "TEXT);"
+                        COLUMN_NAME + " TEXT, " +
+                        COLUMN_TYPE + " TEXT);"
 //                        COLUMN_TYPE + " TEXT, " +
 //                        COLUMN_STATE + " BOOLEAN, " +
 //                        COLUMN_ADD_DATE + " DATE, " +
@@ -58,11 +59,13 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
         long result = db.insert(TABLE_NAME, null, cv);
         if(result == -1)
         {
-            Toast.makeText(context, "Unable to set", Toast.LENGTH_SHORT).show();
+           Toast.makeText(context, "Unable to set", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+           Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
         }
+
+
     }
 }
