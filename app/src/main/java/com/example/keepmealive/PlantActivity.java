@@ -50,7 +50,7 @@ public class PlantActivity extends AppCompatActivity {
         });
 
         plantdb=new PlantDatabaseHelper(PlantActivity.this);
-        addedPlants.findViewById(R.id.recyclerView);
+        addedPlants = findViewById(R.id.recyclerView);
 
         plant_name = new ArrayList<>();
         plant_type = new ArrayList<>();
