@@ -2,11 +2,14 @@ package com.example.keepmealive;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.util.Date;
 
 public class PlantDatabaseHelper extends SQLiteOpenHelper
 {
@@ -18,9 +21,8 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME ="plant_name";
     private static final String COLUMN_TYPE = "plant_type";
-    //private static final String COLUMN_STATE = "plant_status";
-    //private static final String COLUMN_ADD_DATE = "add_date";
-    //private static final String COLUMN_WATER_PERIOD = "water_period";
+    private static final String COLUMN_ADD_DATE = "add_date";
+    private static final String COLUMN_WATER_PERIOD = "water_period";
 
     public PlantDatabaseHelper(@Nullable Context context)
     {
@@ -34,11 +36,9 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
         String query =
                 "CREATE TABLE "+ TABLE_NAME + " ("+COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                         COLUMN_NAME + " TEXT, " +
-                        COLUMN_TYPE + " TEXT);"
-//                        COLUMN_TYPE + " TEXT, " +
-//                        COLUMN_STATE + " BOOLEAN, " +
-//                        COLUMN_ADD_DATE + " DATE, " +
-//                        COLUMN_WATER_PERIOD + " INTEGER); "
+                        COLUMN_TYPE + " TEXT, " +
+                        COLUMN_ADD_DATE + " INTEGER, " +
+                        COLUMN_WATER_PERIOD + " INTEGER); "
                 ;
         dbase.execSQL(query);
     }
@@ -50,12 +50,16 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
         onCreate(dbase);
     }
 
-    void addPlant(String name, String type)
+    void addPlant(String name, String type, int water)
     {
         SQLiteDatabase db  = this.getWritableDatabase();
+        Date d = new Date(System.currentTimeMillis());
+        long milis = d.getTime();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_NAME, name);
         cv.put(COLUMN_TYPE, type);
+        cv.put(COLUMN_ADD_DATE,milis);
+        cv.put(COLUMN_WATER_PERIOD, water);
         long result = db.insert(TABLE_NAME, null, cv);
         if(result == -1)
         {
@@ -66,6 +70,19 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
         }
 
+    }
 
+    Cursor readAllData()
+    {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor crs =null;
+        if( db != null)
+        {
+           crs = db.rawQuery(query,null);
+        }
+
+        return crs;
     }
 }

@@ -108,9 +108,9 @@ public class addPlant_fragment extends DialogFragment implements View.OnClickLis
     public void onClick(View view) {
         String namestr = name_input.getText().toString();
         String typestr = type_input.getText().toString();
-        String waterstr = water_input.getText().toString();
+        int water = Integer.parseInt(water_input.getText().toString());
         PlantDatabaseHelper plantDb = new PlantDatabaseHelper(getContext());
-        plantDb.addPlant(namestr, typestr);
+        plantDb.addPlant(namestr, typestr,water);
         dismiss();
 //        Toast.makeText(mContext, namestr,Toast.LENGTH_SHORT).show();
     }
