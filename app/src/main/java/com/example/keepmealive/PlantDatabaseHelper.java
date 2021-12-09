@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -84,5 +85,24 @@ public class PlantDatabaseHelper extends SQLiteOpenHelper
         }
 
         return crs;
+    }
+
+    void updateTime(String row_id)
+    {
+        Date d = new Date(System.currentTimeMillis());
+        long milis = d.getTime();
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ADD_DATE, milis);
+
+        long res = 1;
+        Log.i("name",row_id);
+        db.update(TABLE_NAME, cv, "plant_name=?", new String[]{row_id});
+        if(res == -1)
+        {
+            Toast.makeText(context, "Couldn't update",Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

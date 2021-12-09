@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class PlantActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class PlantActivity extends AppCompatActivity {
     ImageButton backHomeButton;
 
     RecyclerView addedPlants;
-    PlantDatabaseHelper plantdb;
+    static PlantDatabaseHelper plantdb;
     ArrayList <String> plant_name, plant_type;
     ArrayList<String> plant_added;
 
@@ -65,11 +66,17 @@ public class PlantActivity extends AppCompatActivity {
     }
     void displayData() {
         Cursor crs = plantdb.readAllData();
+        int period;
         if (crs.getCount() != 0) {
             while (crs.moveToNext()) {
                 plant_name.add(crs.getString(1));
                 plant_type.add(crs.getString(2));
                 Date dt = new Date(crs.getLong(3));
+                period=crs.getInt(4);
+                Calendar c = Calendar.getInstance();
+                c.setTime(dt);
+                c.add(Calendar.DATE, period);
+                dt=c.getTime();
                 plant_added.add(dt.toString());
             }
         } else
